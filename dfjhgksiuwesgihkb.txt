@@ -678,7 +678,6 @@ end
 						end)
 					end)
 
-					local HumanoidRP = game.Players.LocalPlayer.Character.HumanoidRootPart
 					local BV = Instance.new("BodyVelocity",HumanoidRP)
 					local BG = Instance.new("BodyGyro",HumanoidRP)
 
