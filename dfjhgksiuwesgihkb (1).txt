@@ -777,13 +777,13 @@ end
 					local function Chat()
 					    if replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
     					    -- Old chat system message with your desired font characters
-   					     replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Н￴Е￴R￴Е￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴О￴МЕ￴ЅТ￴Н￴Е￴Н￴О￴LYС￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴О￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴К..О￴Н￴МYG￴О￴D￴...", "All")
+   					     replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("А￴Н￴Н￴YЕ￴Ѕ...", "All")
  					   else
     					    -- New chat system message with your different font
     					    local generalChannel = textChatService:FindFirstChild("RBXGeneral")
     					    if generalChannel then
      					       -- You can modify the new chat message here to whatever format you want
-     					       generalChannel:SendAsync("4")
+     					       generalChannel:SendAsync("5")
     					    else
      					       warn("General chat channel not found!")
     					    end
@@ -792,7 +792,25 @@ end
 					bang:AdjustSpeed(15)  -- Adjust speed after the fourth message
 					wait(2)
 
-					ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("А￴Н￴Н￴YЕ￴Ѕ...", "All")
+					￴local replicatedStorage = game:GetService("ReplicatedStorage")
+					local textChatService = game:GetService("TextChatService")
+
+					-- Function to send chat messages
+					local function Chat()
+					    if replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+    					    -- Old chat system message with your desired font characters
+   					     replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴МО￴N￴D￴А￴R￴LӀ￴N￴G￴ЅU￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴КТ￴Н￴А￴Т￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴О￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴К!!", "All")
+ 					   else
+    					    -- New chat system message with your different font
+    					    local generalChannel = textChatService:FindFirstChild("RBXGeneral")
+    					    if generalChannel then
+     					       -- You can modify the new chat message here to whatever format you want
+     					       generalChannel:SendAsync("1")
+    					    else
+     					       warn("General chat channel not found!")
+    					    end
+  					  end
+					end
 					bang:AdjustSpeed(16)  -- Adjust speed after the fifth message
 					wait(3)
 
