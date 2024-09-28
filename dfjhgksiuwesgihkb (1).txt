@@ -769,8 +769,26 @@ end
 					end
 					bang:AdjustSpeed(13)  -- Adjust speed after the third message
 					wait(3)
+					
+					local replicatedStorage = game:GetService("ReplicatedStorage")
+					local textChatService = game:GetService("TextChatService")
 
-					ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Н￴Е￴R￴Е￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴О￴МЕ￴ЅТ￴Н￴Е￴Н￴О￴LYС￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴О￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴К..О￴Н￴МYG￴О￴D￴...", "All")
+					-- Function to send chat messages
+					local function Chat()
+					    if replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+    					    -- Old chat system message with your desired font characters
+   					     replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Н￴Е￴R￴Е￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴О￴МЕ￴ЅТ￴Н￴Е￴Н￴О￴LYС￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴О￴С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴К..О￴Н￴МYG￴О￴D￴...", "All")
+ 					   else
+    					    -- New chat system message with your different font
+    					    local generalChannel = textChatService:FindFirstChild("RBXGeneral")
+    					    if generalChannel then
+     					       -- You can modify the new chat message here to whatever format you want
+     					       generalChannel:SendAsync("4")
+    					    else
+     					       warn("General chat channel not found!")
+    					    end
+  					  end
+					end
 					bang:AdjustSpeed(15)  -- Adjust speed after the fourth message
 					wait(2)
 
