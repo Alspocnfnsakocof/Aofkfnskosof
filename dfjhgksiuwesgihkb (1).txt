@@ -384,16 +384,15 @@ end
 
 				-- Check if success is true before proceeding
 				if success then
-					local chatEvents = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents
-					print("Starting...")
-
+					print("Success")
 					-- Add your new script logic here
 
 					-- Example of new script functionality
 
 				else
-					local chatEvents = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents
-					chatEvents.SayMessageRequest:FireServer("❌ First script encountered an error.", "All")
+					-- Usage: Send chat messages for both systems with delays
+					sendChatMessage("❌ Error.")
+
 				end
 			end
 
@@ -657,7 +656,7 @@ end
 					local playerLeftConnection
 					playerLeftConnection = Players.PlayerRemoving:Connect(function(player)
 						if player == targetPlayer then
-							ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("❌ Error: The targeted player has left the game.", "All")
+							sendChatMessage("❌ The target player has left the game.")
 							playerLeftConnectiosconnect()
 							return
 						end
