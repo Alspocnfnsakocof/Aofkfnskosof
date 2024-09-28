@@ -849,8 +849,25 @@ end
 
 					-- Set the animation speed to 0 after some time
 					bang:AdjustSpeed(0)
-					ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("*/С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴U￴МЅА￴LО￴Т￴*", "All")
+					local replicatedStorage = game:GetService("ReplicatedStorage")
+					local textChatService = game:GetService("TextChatService")
 
+					-- Function to send chat messages
+					local function Chat()
+					    if replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+    					    -- Old chat system message with your desired font characters
+   					     replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("*/С￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴￴U￴МЅА￴LО￴Т￴*", "All")
+ 					   else
+    					    -- New chat system message with your different font
+    					    local generalChannel = textChatService:FindFirstChild("RBXGeneral")
+    					    if generalChannel then
+     					       -- You can modify the new chat message here to whatever format you want
+     					       generalChannel:SendAsync("6")
+    					    else
+     					       warn("General chat channel not found!")
+    					    end
+  					  end
+					end
 					wait(4)
 
 					stopNoclip()
@@ -870,8 +887,25 @@ end
 
 				else
 					-- If no player was found with the specified username, display an error message
-					ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("❌ Error: Target player not found.", "All")
+					local replicatedStorage = game:GetService("ReplicatedStorage")
+					local textChatService = game:GetService("TextChatService")
 
+					-- Function to send chat messages
+					local function Chat()
+					    if replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+    					    -- Old chat system message with your desired font characters
+   					     replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("❌ Target found player not found.", "All")
+ 					   else
+    					    -- New chat system message with your different font
+    					    local generalChannel = textChatService:FindFirstChild("RBXGeneral")
+    					    if generalChannel then
+     					       -- You can modify the new chat message here to whatever format you want
+     					       generalChannel:SendAsync("❌ Target player not found.")
+    					    else
+     					       warn("General chat channel not found!")
+    					    end
+  					  end
+					end
 					local camera = workspace.CurrentCamera
 					camera.CameraSubject = Players.LocalPlayer.Character:FindFirstChild("Humanoid")
 					camera.CameraType = Enum.CameraType.Custom
@@ -923,7 +957,25 @@ end
 
 			-- (Existing StartButton functionality here)
 		else
-			game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("The target does not exist. Please type a new target.", "All")
+			local replicatedStorage = game:GetService("ReplicatedStorage")
+					local textChatService = game:GetService("TextChatService")
+
+					-- Function to send chat messages
+					local function Chat()
+					    if replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+    					    -- Old chat system message with your desired font characters
+   					     replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("❌ Invalid target. Please type a new target.", "All")
+ 					   else
+    					    -- New chat system message with your different font
+    					    local generalChannel = textChatService:FindFirstChild("RBXGeneral")
+    					    if generalChannel then
+     					       -- You can modify the new chat message here to whatever format you want
+     					       generalChannel:SendAsync("❌ Invalid target. Please type a new target.")
+    					    else
+     					       warn("General chat channel not found!")
+    					    end
+  					  end
+					end
 		end
 	end)
 end
