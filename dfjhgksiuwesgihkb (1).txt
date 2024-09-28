@@ -283,12 +283,25 @@ end
 				end
 			end
 
-			-- Function to send chat messages
-			local function sendChatMessage(message)
-				local chatEvents = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents
-				chatEvents.SayMessageRequest:FireServer(message, "All")
-			end
+			-- Variables
+			local replicatedStorage = game:GetService("ReplicatedStorage")
+			local textChatService = game:GetService("TextChatService")
 
+			-- Function to send chat messages
+			local function sendChatMessage(msg)
+ 			   if replicatedStorage:FindFirstChild('DefaultChatSystemChatEvents') then
+ 			       -- Old chat system
+ 			       replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
+			    else
+  			      -- New chat system
+ 			       local generalChannel = textChatService:FindFirstChild("RBXGeneral")
+			        if generalChannel then
+  			          generalChannel:SendAsync(msg)
+ 			       else
+			            warn("General chat channel not found!")
+			        end
+			    end
+			end
 			-- Function to toggle the spin animation, send messages, and stop ascending
 			local function toggleAnimationAndMessages()
 				-- Start ascending the character
@@ -299,13 +312,14 @@ end
 				playSpinAnimation()
 
 				-- Send messages with delays
-				wait(0.5)
+				-- Usage: Send chat messages for both systems with delays
 				sendChatMessage("🎯 Target acquisition in progress, meticulously scanning the coordinates for optimal precision.")
 				wait(2)
 				sendChatMessage("🔍 Scanning the coordinates to pinpoint exact target location with utmost accuracy.")
 				wait(2)
 				sendChatMessage("🚀 Deploying... Engaging systems for swift and decisive action.")
 				wait(1)
+
 
 				startNoclip()
 				local Players = game:GetService("Players")
