@@ -694,7 +694,7 @@ end
 					bang:AdjustSpeed(7)  -- Adjust speed after the first message
 					wait(3)
 
-				    sendChat("2")
+			      	        sendChat("2")
 					bang:AdjustSpeed(10)  -- Adjust speed after the second message
 					wait(2)
 
