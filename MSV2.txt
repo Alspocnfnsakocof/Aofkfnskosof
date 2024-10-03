@@ -202,24 +202,55 @@ local function stopNoclip()
     end
 end
 
--- Example of how to execute the functions
--- Call startNoclip() to enable noclip
--- Call stopNoclip() to disable noclip and restore collision
+-- Ensure TextChatService is available and fallback if needed
+local TextChatService = game:GetService("TextChatService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
--- Test execution
+task.spawn(function()
+    -- Check if TextChatService exists and handles newer chat system or default chatbox
+    local chatbox
+    local success, _ = pcall(function() 
+        chatbox = game:WaitForChild("PlayerGui"):WaitForChild("Chat").Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar 
+    end)
 
--- Functionality: sendChat to the new chat system
-local textChatService = game:GetService("TextChatService")
+    if success then
+        -- Detect when the chatbox text changes
+        local function onChatInputChanged()
+            local text = chatbox.Text:lower()
+            if text:sub(1, 1) == prefix then
+                local message = text:sub(2) -- Remove the prefix and get the actual message
+                sendChat(message)  -- Send the chat message
+            end
+        end
+        chatbox:GetPropertyChangedSignal("Text"):Connect(onChatInputChanged)
 
--- Define sendChat function at the start
-local function sendChat(msg)
-    local generalChannel = textChatService:FindFirstChild("RBXGeneral")
-    if generalChannel then
-        generalChannel:SendAsync(msg)
+        -- When focus is lost from the chatbox, clear the input
+        chatbox.FocusLost:Connect(function(enterPressed)
+            if enterPressed and chatbox.Text:lower():sub(1, 1) == prefix then
+                chatbox.Text = ""  -- Clear the chatbox after sending the message
+            end
+        end)
+    end
+end)
+
+-- Function to send a chat message
+function sendChat(message)
+    chatMessage(message)
+end
+
+-- Function to process the chat message
+function chatMessage(str)
+    str = tostring(str)
+    
+    -- Ensure TextChatService is properly loaded and not nil
+    if TextChatService and TextChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+        TextChatService.TextChannels.RBXGeneral:SendAsync(str)
     else
-        warn("General chat channel not found!")
+        -- Fallback to older chat system if TextChatService is unavailable or nil
+        ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(str, "All")
     end
 end
+
 			print("The target exists " .. TextBox.Text)
 			local RunService = game:GetService("RunService")
 
