@@ -136,19 +136,35 @@ local function transformText(input)
     return output
 end
 
--- Chat Button action
-local function sendMessage()
-    local transformedText = transformText(InputBox.Text)
-    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(transformedText, "All")
+-- Clipboard function
+local function copyToClipboard(text)
+    if setclipboard then
+        setclipboard(text)
+    elseif toclipboard then
+        toclipboard(text)
+    else
+        warn("Clipboard function not supported.")
+    end
 end
 
+-- Chat Button action (modified to include clipboard functionality)
+local function sendMessage()
+    local transformedText = transformText(InputBox.Text)
+    
+    -- Send the transformed message to chat
+    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(transformedText, "All")
+    
+    -- Copy the transformed message to the clipboard
+    copyToClipboard(transformedText)
+end
+
+-- Connect the Gawk button to the sendMessage function
 ChatButton.MouseButton1Click:Connect(sendMessage)
+
 
 -- Handle Enter key press in the TextBox
 InputBox.FocusLost:Connect(function(enterPressed)
     if enterPressed then
-        setclipboard(transformedText)
-        toclipboard(transformedText)
         sendMessage()
     end
 end)
