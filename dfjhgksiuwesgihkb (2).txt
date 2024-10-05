@@ -649,35 +649,41 @@ end
 						end
 					end)
 
-					-- Load appropriate animation based on player's rig type
+					
+
+					local HumanoidRP = game.Players.LocalPlayer
 					local bangAnim = Instance.new("Animation")
 					if not isR15(Players.LocalPlayer) then
-						bangAnim.AnimationId = "rbxassetid://148840371"  -- Animation ID for non-R15
+ 					   bangAnim.AnimationId = "rbxassetid://148840371"  -- Animation ID for non-R15
 					else
-						bangAnim.AnimationId = "rbxassetid://5918726674"  -- Animation ID for R15
+ 					   bangAnim.AnimationId = "rbxassetid://5918726674"  -- Animation ID for R15
 					end
 
 					-- Play the animation on the local player's character
 					local bang = Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(bangAnim)
 					bang:Play(.1, 1, 1)
 
-					-- Set up synchronization loop to move local player towards target player's head position
+					-- Set up synchronization loop to move local player towards target player's back
 					local bangLoop
 					bangLoop = RunService.Stepped:Connect(function()
-						pcall(function()
-							if targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-								local otherRoot = targetPlayer.Character.Head
-								Players.LocalPlayer.Character.HumanoidRootPart.CFrame = otherRoot.CFrame * CFrame.new(0, 1, -1.1)
-								local charPos = Players.LocalPlayer.Character.PrimaryPart.Position
-								local tPos = targetPlayer.Character:FindFirstChild("HumanoidRootPart").Position
-								local TPos = Vector3.new(tPos.X, charPos.Y, tPos.Z)
-								local newCFrame = CFrame.new(charPos, TPos)
-								Players.LocalPlayer.Character:SetPrimaryPartCFrame(newCFrame)
-							end
-						end)
-					end)
+  					  pcall(function()
+  					      if targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+   					         local otherRoot = targetPlayer.Character.HumanoidRootPart
+    					        -- Adjust position to target the back of the target's head by using LookVector
+       					     local backOffset = otherRoot.CFrame - otherRoot.CFrame.LookVector * 2 -- Move 2 studs behind
 
-					local HumanoidRP = game.Players.LocalPlayer.Character.HumanoidRootPart
+  					          -- Move local player's HumanoidRootPart to the back of the target
+     					       Players.LocalPlayer.Character.HumanoidRootPart.CFrame = backOffset * CFrame.new(0, 1, -1.1)
+            
+   					         -- Adjust local player’s rotation to face the same direction as the target
+   					         local charPos = Players.LocalPlayer.Character.PrimaryPart.Position
+    					        local tPos = otherRoot.Position
+    					        local TPos = Vector3.new(tPos.X, charPos.Y, tPos.Z)
+    					        local newCFrame = CFrame.new(charPos, TPos)
+     					       Players.LocalPlayer.Character:SetPrimaryPartCFrame(newCFrame)
+    					    end
+   					 end)
+					end)
 					local BV = Instance.new("BodyVelocity",HumanoidRP)
 					local BG = Instance.new("BodyGyro",HumanoidRP)
 
