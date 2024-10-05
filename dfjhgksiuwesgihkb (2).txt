@@ -674,15 +674,15 @@ end
  					   pcall(function()
     					    if targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
    					         local otherRoot = targetPlayer.Character.HumanoidRootPart
-    					        local bangOffset = CFrame.new(0, 0, 1.1)
+    					         local bangOffset = CFrame.new(0, 0, 1.1)
 
    					         -- Move local player's HumanoidRootPart to the back of the target
-    					        speaker.Character.HumanoidRootPart.CFrame = otherRoot.CFrame * bangOffset
+    			 		         speaker.Character.HumanoidRootPart.CFrame = otherRoot.CFrame * bangOffset
             
    					         -- Adjust local player’s rotation to face the same direction as the target
- 					           local charPos = speaker.Character.PrimaryPart.Position
- 					           local tPos = otherRoot.Position
-					            local TPos = Vector3.new(tPos.X, charPos.Y, tPos.Z)
+ 					         local charPos = speaker.Character.PrimaryPart.Position
+ 					         local tPos = otherRoot.Position
+					         local TPos = Vector3.new(tPos.X, charPos.Y, tPos.Z)
    					         local newCFrame = CFrame.new(charPos, TPos)
    					         speaker.Character:SetPrimaryPartCFrame(newCFrame)
    					     end
