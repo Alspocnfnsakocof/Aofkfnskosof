@@ -691,15 +691,21 @@ end
 
 					
 
-					local BV = Instance.new("BodyVelocity",HumanoidRP)
-					local BG = Instance.new("BodyGyro",HumanoidRP)
+					local player = game.Players.LocalPlayer
+					local character = player.Character or player.CharacterAdded:Wait()
+					local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
-					BV.MaxForce = Vector3.new(math.huge,math.huge,math.huge)
-					game:GetService('RunService').RenderStepped:connect(function()
-						BG.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
-						BG.D = 5000
-						BG.P = 100000
-						BG.CFrame = game.Workspace.CurrentCamera.CFrame
+					local BV = Instance.new("BodyVelocity", humanoidRootPart)
+					local BG = Instance.new("BodyGyro", humanoidRootPart)
+
+					BV.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+
+					BG.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+					BG.D = 5000
+					BG.P = 100000
+
+					game:GetService('RunService').RenderStepped:Connect(function()
+					    BG.CFrame = workspace.CurrentCamera.CFrame * CFrame.new(0, 0, 0)  -- Adjust
 					end)
 
 					-- Messages during animation with adjusted speeds and durations
