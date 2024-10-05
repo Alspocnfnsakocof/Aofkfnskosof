@@ -147,6 +147,7 @@ ChatButton.MouseButton1Click:Connect(sendMessage)
 -- Handle Enter key press in the TextBox
 InputBox.FocusLost:Connect(function(enterPressed)
     if enterPressed then
+        setclipboard(transformedText)
         sendMessage()
     end
 end)
