@@ -108,7 +108,7 @@ local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 
 -- Destroy existing GUI if it exists
-local existingGui = Player:WaitForChild("PlayerGui"):FindFirstChild("CustomDraggableGui")
+local existingGui = Player:WaitForChild("PlayerGui"):FindFirstChild("MeowMeowNiba")
 if existingGui then
 	existingGui:Destroy()
 end
@@ -124,7 +124,7 @@ local function createGui()
 
 	-- Parent
 	ScreenGui.Parent = Player:WaitForChild("PlayerGui")
-	ScreenGui.Name = "CustomDraggableGui"
+	ScreenGui.Name = "MeowMeowNiba"
 	ScreenGui.ResetOnSpawn = false
 
 	-- Frame properties
